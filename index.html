@@ -271,9 +271,11 @@
         </audio>
         <div class="text-center">
             <div id="musicStatus" class="text-green-400 text-sm sm:text-lg font-medium mb-2">
-                🎵 Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu""
+                Sebel
             </div>
-
+            <button id="playButton" class="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-xl">
+                🎵 Klik disini dong kak 🤭
+            </button>
         </div>
     </div>
 </div>
@@ -371,7 +373,7 @@
         <!-- Footer -->
         <div class="text-center">
             <p class="text-gray-500 text-xs sm:text-sm">
-                Jodoh itu urusan Tuhan, Kalau emang jodoh, sejauh apapun pasti dipertemukan. Yang bisa kulakukan sekarang cuma bisa dukung kamu, bantuin kamu, pengen selalu ada buat kamu,  sambil berharap semoga jalan kita dipermudah.
+                Jodoh itu urusan Tuhan, Kalau emang jodoh, sejauh apapun pasti dipertemukan. Aku cuma bisa mendukungmu, bantuin kamu, pengen selalu ada buat kamu,  sambil berharap semoga jalan kita berdua dipermudah.
             </p>
         </div>
     </div>
@@ -661,103 +663,43 @@
             window.startTypewriter = startTypewriter;
         });
 
-        // Force auto-play audio - Ultimate solution
+        // Simple button-based audio system
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('audioPlayer');
             const musicStatus = document.getElementById('musicStatus');
+            const playButton = document.getElementById('playButton');
+            let audioStarted = false;
             
             // Set audio properties
             audio.volume = 0.6;
             audio.preload = 'auto';
             audio.muted = false;
             
-            // Multiple auto-play attempts with different strategies
-            const forcePlay = () => {
-                // Strategy 1: Direct play
-                audio.play().then(() => {
-                    console.log('Audio playing successfully');
-                    musicStatus.innerHTML = 'Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu"';
-                    musicStatus.className = 'text-green-400 text-lg font-medium mb-2';
-                    // Start typewriter effect when audio plays successfully
-                    if (window.startTypewriter) {
-                        window.startTypewriter();
-                    }
-                }).catch(e => {
-                    console.log('Direct play failed, trying muted play:', e);
+            // Button click handler
+            playButton.addEventListener('click', function() {
+                if (!audioStarted) {
+                    audioStarted = true;
                     
-                    // Strategy 2: Muted play then unmute
-                    audio.muted = true;
                     audio.play().then(() => {
-                        setTimeout(() => {
-                            audio.muted = false;
-                            console.log('Audio playing with muted strategy');
-                            musicStatus.innerHTML = 'Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu"';
-                            musicStatus.className = 'text-green-400 text-lg font-medium mb-2';
-                            // Start typewriter effect when audio plays successfully
-                            if (window.startTypewriter) {
-                                window.startTypewriter();
-                            }
-                        }, 100);
-                    }).catch(e2 => {
-                        console.log('Muted play failed, trying user interaction:', e2);
+                        console.log('Audio playing successfully');
+                        musicStatus.innerHTML = '🎵 Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu"';
+                        musicStatus.className = 'text-green-400 text-sm sm:text-lg font-medium mb-2';
                         
-                        // Strategy 3: Wait for any user interaction
-                        const playOnInteraction = () => {
-                            audio.muted = false;
-                            audio.play().then(() => {
-                                console.log('Audio playing after user interaction');
-                                musicStatus.innerHTML = 'Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu"';
-                                musicStatus.className = 'text-green-400 text-lg font-medium mb-2';
-                                // Start typewriter effect when audio plays successfully
-                                if (window.startTypewriter) {
-                                    window.startTypewriter();
-                                }
-                            }).catch(e3 => {
-                                console.log('All strategies failed:', e3);
-                                musicStatus.innerHTML = '❌ Gagal memutar musik';
-                                musicStatus.className = 'text-red-400 text-lg font-medium mb-2';
-                            });
-                        };
+                        // Hide the button after successful play
+                        playButton.style.display = 'none';
                         
-                        // Show hint for user interaction
-                        musicStatus.innerHTML = '💡 Klik Aku disini Dong Kak 🤭';
-                        musicStatus.className = 'text-blue-400 text-lg font-medium mb-2 animate-pulse';
-                        
-                        // Listen for any interaction
-                        const startEverything = () => {
-                            playOnInteraction();
-                            // Start typewriter effect when user interacts
-                            if (window.startTypewriter) {
-                                window.startTypewriter();
-                            }
-                        };
-                        
-                        document.addEventListener('click', startEverything, { once: true });
-                        document.addEventListener('keydown', startEverything, { once: true });
-                        document.addEventListener('touchstart', startEverything, { once: true });
+                        // Start typewriter effect when audio plays successfully
+                        if (window.startTypewriter) {
+                            window.startTypewriter();
+                        }
+                    }).catch(e => {
+                        console.log('Audio play failed:', e);
+                        musicStatus.innerHTML = '❌ Gagal memutar musik';
+                        musicStatus.className = 'text-red-400 text-sm sm:text-lg font-medium mb-2';
+                        audioStarted = false; // Reset flag so user can try again
                     });
-                });
-            };
-            
-            // Try multiple times with different delays
-            forcePlay();
-            setTimeout(forcePlay, 100);
-            setTimeout(forcePlay, 500);
-            setTimeout(forcePlay, 1000);
-            setTimeout(forcePlay, 2000);
-            
-            // Also try when page is fully loaded
-            window.addEventListener('load', forcePlay);
-            
-            // Try when page becomes visible
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden) {
-                    forcePlay();
                 }
             });
-            
-            // Try when window gets focus
-            window.addEventListener('focus', forcePlay);
         });
     </script>
 </body>
