@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Salma Sadiah</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'typewriter': 'typewriter 2s steps(40) forwards',
+                        'blink': 'blink 1s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        typewriter: {
+                            '0%': { width: '0' },
+                            '100%': { width: '100%' },
+                        },
+                        blink: {
+                            '0%, 50%': { borderColor: 'transparent' },
+                            '51%, 100%': { borderColor: 'white' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid white;
+            white-space: nowrap;
+            margin: 0 auto;
+            width: 0;
+            word-wrap: break-word;
+        }
+
+        /* Responsive typewriter for mobile */
+        @media (max-width: 768px) {
+            .typewriter {
+                white-space: normal;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: white;
+            animation: blink 1s infinite;
+        }
+        .typing-char {
+            color: #10b981;
+        }
+
+        /* Bubble Animation Styles */
+        .bubble-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .bubble:hover {
+            transform: scale(1.2);
+            background: radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.6), rgba(16, 185, 129, 0.3));
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .bubble.small {
+            width: 20px;
+            height: 20px;
+            animation-duration: 8s;
+            animation-delay: 0s;
+        }
+
+        .bubble.medium {
+            width: 40px;
+            height: 40px;
+            animation-duration: 10s;
+            animation-delay: 2s;
+        }
+
+        .bubble.large {
+            width: 60px;
+            height: 60px;
+            animation-duration: 12s;
+            animation-delay: 4s;
+        }
+
+        .bubble.xlarge {
+            width: 80px;
+            height: 80px;
+            animation-duration: 15s;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+
+        /* Sparkle animation */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #10b981;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleFloat 3s ease-in-out infinite;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+        }
+
+        @keyframes sparkleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0px) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+                transform: translateY(80vh) translateX(20px) scale(1);
+            }
+            80% {
+                opacity: 0.8;
+                transform: translateY(20vh) translateX(-20px) scale(1);
+            }
+            100% {
+                transform: translateY(-100px) translateX(0px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Ensure content is above bubbles */
+        .container {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .bubble.small {
+                width: 15px;
+                height: 15px;
+            }
+            .bubble.medium {
+                width: 25px;
+                height: 25px;
+            }
+            .bubble.large {
+                width: 35px;
+                height: 35px;
+            }
+            .bubble.xlarge {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .sparkle {
+                width: 3px;
+                height: 3px;
+            }
+            
+            /* Reduce animation frequency on mobile for better performance */
+            .bubble {
+                animation-duration: 8s;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bubble.small {
+                width: 12px;
+                height: 12px;
+            }
+            .bubble.medium {
+                width: 20px;
+                height: 20px;
+            }
+            .bubble.large {
+                width: 28px;
+                height: 28px;
+            }
+            .bubble.xlarge {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .sparkle {
+                width: 2px;
+                height: 2px;
+            }
+        }
+
+        /* Touch-friendly interactions */
+        @media (hover: none) and (pointer: coarse) {
+            .bubble:hover {
+                transform: none;
+                background: radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-black text-white">
+    <!-- Bubble Animation Container -->
+    <div class="bubble-container" id="bubbleContainer"></div>
+    
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-8 sm:mb-16">
+            <div class="mb-6 sm:mb-8">
+                <h1 id="mainTitle" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4">
+                    For Salma Sadiah
+                </h1>
+            </div>
+<!-- Audio Player -->
+<div class="max-w-sm sm:max-w-md mx-auto mb-8 sm:mb-12">
+    <div class="border border-gray-800 rounded-lg p-4 sm:p-6 bg-gray-900/30">
+       
+        <audio id="audioPlayer" autoplay loop class="w-full" style="display: none;">
+            <source src="Nadhif Basalamah - bergema sampai selamanya (Official Lyric Video) [gvunApwKIiY].mp3" type="audio/mpeg">
+            <source src="nadhief-romantis.wav" type="audio/wav">
+            <source src="nadhief.mp3" type="audio/mpeg">
+            <source src="nadhief.wav" type="audio/wav">
+            Browser Anda tidak mendukung audio player.
+        </audio>
+        <div class="text-center">
+            <div id="musicStatus" class="text-green-400 text-sm sm:text-lg font-medium mb-2">
+                🎵 Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu""
+            </div>
+
+        </div>
+    </div>
+</div>
+        </div>
+
+        <!-- Main Message -->
+        <div class="mb-8 sm:mb-16">
+            <div class="border border-gray-800 rounded-lg p-4 sm:p-6 md:p-8 lg:p-12 bg-gray-900/30">
+                <div class="text-center">
+                    <div id="mainMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 opacity-0">
+                        <span class="typewriter">Aku ingin jadi teman nyamanmu</span>
+                    </div>
+                    <div id="secondMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Tempat kau hilangkan keluh kesahmu</span>
+                    </div>
+                    <div id="thirdMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Kita berbincang tak karuan tanpa beban</span>
+                    </div>
+                    <div id="fourthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Dan juga khayalan tentang masa depan</span>
+                    </div>
+                    <div id="fifthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Ku tak ingin cepat berlalu</span>
+                    </div>
+                    <div id="sixthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Waktu yang kupunya denganmu</span>
+                    </div>
+                    <div id="seventhMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Kita berdansa dan tertawa gandeng tangan</span>
+                    </div>
+                    <div id="eighthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Semoga bergema sampai selamanya</span>
+                    </div>
+                    <div id="ninthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Dunia pasti ada akhirnya</span>
+                    </div>
+                    <div id="tenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Bintang bintang pun ada umurnya</span>
+                    </div>
+                    <div id="eleventhMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Maka tenang saja kita di sini berdua</span>
+                    </div>
+                    <div id="twelfthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Nikmati sementara yang ada</span>
+                    </div>
+                    <div id="thirteenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Bersandar padaku</span>
+                    </div>
+                    <div id="fourteenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Taruh di bahuku</span>
+                    </div>
+                    <div id="fifteenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Relakan semua</span>
+                    </div>
+                    <div id="sixteenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Bebas semaumu</span>
+                    </div>
+                    <div id="seventeenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Percayalah ini sayang terlewatkan</span>
+                    </div>
+                    <div id="eighteenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Kusampaikan dalam nyanyian</span>
+                    </div>
+                    <div id="nineteenthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Bergema sampai selamanya</span>
+                    </div>
+                    <div id="twentiethMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Dunia pasti ada akhirnya</span>
+                    </div>
+                    <div id="twentyFirstMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Bintang bintang pun ada umurnya</span>
+                    </div>
+                    <div id="twentySecondMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Maka tenang saja kita di sini berdua</span>
+                    </div>
+                    <div id="twentyThirdMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Nikmati sementara yang ada</span>
+                    </div>
+                    <div id="twentyFourthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Bintang bintang pun ada umurnya</span>
+                    </div>
+                    <div id="twentyFifthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Maka tenang saja kita di sini berdua</span>
+                    </div>
+                    <div id="twentySixthMessage" class="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 mt-4 sm:mt-6 opacity-0">
+                        <span class="typewriter">Nikmati sementara yang ada</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        
+
+        <!-- Footer -->
+        <div class="text-center">
+            <p class="text-gray-500 text-xs sm:text-sm">
+                Jodoh itu urusan Tuhan, Kalau emang jodoh, sejauh apapun pasti dipertemukan. Yang bisa kulakukan sekarang cuma bisa dukung kamu, bantuin kamu, pengen selalu ada buat kamu,  sambil berharap semoga jalan kita dipermudah.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Sequential typewriter effect - waits for each message to complete
+        function initTypewriter() {
+            const elements = document.querySelectorAll('.typewriter');
+            let currentIndex = 0;
+            let typewriterStarted = false;
+            
+            function typeNextMessage() {
+                if (currentIndex >= elements.length) return;
+                
+                const element = elements[currentIndex];
+                const originalText = element.textContent;
+                
+                // Show the message container
+                element.parentElement.style.opacity = '1';
+                
+                // Reset element state
+                element.textContent = '';
+                element.style.borderRight = '2px solid white';
+                
+                let i = 0;
+                // Adjust typing speed based on device
+                const isMobile = window.innerWidth <= 768;
+                const typeSpeed = isMobile ? 100 : 150; // Faster on mobile for better UX
+                
+                function typeChar() {
+                    if (i < originalText.length) {
+                        // Create span for each character with yellow color
+                        const charSpan = document.createElement('span');
+                        charSpan.textContent = originalText.charAt(i);
+                        charSpan.classList.add('typing-char');
+                        element.appendChild(charSpan);
+                        
+                        i++;
+                        setTimeout(typeChar, typeSpeed);
+                    } else {
+                        // Start cursor blinking after typing is complete
+                        element.style.animation = 'blink 1s infinite';
+                        
+                        // Check for special delays
+                        const isBeforeSpecialDelay1 = currentIndex === 11; // 0-based index, so 11 = 12th message (before "Bersandar padaku")
+                        const isBeforeSpecialDelay2 = currentIndex === 18; // 0-based index, so 18 = 19th message (before "Dunia pasti ada akhirnya")
+                        
+                        let delayTime = 1000; // Default 1 second
+                        if (isBeforeSpecialDelay1) {
+                            delayTime = 13000; // 13 seconds before "Bersandar padaku"
+                        } else if (isBeforeSpecialDelay2) {
+                            delayTime = 20000; // 20 seconds before "Dunia pasti ada akhirnya"
+                        }
+                        
+                        // Add pause, then move to next message
+                        setTimeout(() => {
+                            element.style.animation = 'none';
+                            element.style.borderRight = 'none';
+                            currentIndex++;
+                            typeNextMessage(); // Start next message
+                        }, delayTime);
+                    }
+                }
+                
+                typeChar();
+            }
+            
+            // Function to start typewriter effect
+            function startTypewriter() {
+                if (!typewriterStarted) {
+                    typewriterStarted = true;
+                    // Add 3 second delay before starting typewriter
+                    setTimeout(() => {
+                        typeNextMessage();
+                    }, 3000);
+                }
+            }
+            
+            // Return the start function so it can be called from outside
+            return startTypewriter;
+        }
+
+        // Message System
+        const messages = {
+            love: {
+                title: 'Teman Nyamanmu',
+                content: `
+                    <p class="text-lg leading-relaxed text-gray-200 mb-4">
+                        Aku ingin jadi teman nyamanmu<br>
+                        Tempat kau hilangkan keluh kesahmu<br>
+                        Kita berbincang tak karuan tanpa beban<br>
+                        Dan juga khayalan tentang masa depan
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-200">
+                        Ku tak ingin cepat berlalu<br>
+                        Waktu yang kupunya denganmu<br>
+                        Kita berdansa dan tertawa gandeng tangan<br>
+                        Semoga bergema sampai selamanya
+                    </p>
+                `
+            },
+            promise: {
+                title: 'Dunia Pasti Ada Akhirnya',
+                content: `
+                    <p class="text-lg leading-relaxed text-gray-200 mb-4">
+                        Dunia pasti ada akhirnya<br>
+                        Bintang bintang pun ada umurnya<br>
+                        Maka tenang saja kita di sini berdua<br>
+                        Nikmati sementara yang ada
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-200">
+                        Bintang bintang pun ada umurnya<br>
+                        Maka tenang saja kita di sini berdua<br>
+                        Nikmati sementara yang ada
+                    </p>
+                `
+            },
+            future: {
+                title: 'Bergema Sampai Selamanya',
+                content: `
+                    <p class="text-lg leading-relaxed text-gray-200 mb-4">
+                        Bersandar padaku<br>
+                        Taruh di bahuku<br>
+                        Relakan semua<br>
+                        Bebas semaumu
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-200">
+                        Percayalah ini sayang terlewatkan<br>
+                        Kusampaikan dalam nyanyian<br>
+                        Bergema sampai selamanya
+                    </p>
+                `
+            },
+            gratitude: {
+                title: 'Khayalan Masa Depan',
+                content: `
+                    <p class="text-lg leading-relaxed text-gray-200 mb-4">
+                        Kita berbincang tak karuan tanpa beban<br>
+                        Dan juga khayalan tentang masa depan<br>
+                        Ku tak ingin cepat berlalu<br>
+                        Waktu yang kupunya denganmu
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-200">
+                        Kita berdansa dan tertawa gandeng tangan<br>
+                        Semoga bergema sampai selamanya<br>
+                        Percayalah ini sayang terlewatkan<br>
+                        Kusampaikan dalam nyanyian
+                    </p>
+                `
+            }
+        };
+
+        function showMessage(type) {
+            const messageDisplay = document.getElementById('messageDisplay');
+            const messageContent = document.getElementById('messageContent');
+            const message = messages[type];
+            
+            messageContent.innerHTML = `
+                <h3 class="text-2xl font-medium text-white mb-6">${message.title}</h3>
+                ${message.content}
+            `;
+            
+            messageDisplay.classList.remove('hidden');
+            messageDisplay.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Bubble Animation System
+        function createBubble() {
+            const bubbleContainer = document.getElementById('bubbleContainer');
+            const bubble = document.createElement('div');
+            
+            // Random bubble size
+            const sizes = ['small', 'medium', 'large', 'xlarge'];
+            const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+            
+            bubble.className = `bubble ${randomSize}`;
+            
+            // Random starting position
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            
+            // Add click effect
+            bubble.addEventListener('click', function() {
+                createBubbleBurst(this);
+                this.remove();
+            });
+            
+            bubbleContainer.appendChild(bubble);
+            
+            // Remove bubble after animation completes
+            setTimeout(() => {
+                if (bubble.parentNode) {
+                    bubble.remove();
+                }
+            }, 20000);
+        }
+
+
+        function createSparkle() {
+            const bubbleContainer = document.getElementById('bubbleContainer');
+            const sparkle = document.createElement('div');
+            
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            sparkle.style.width = sparkle.style.height = (Math.random() * 6 + 2) + 'px';
+            
+            bubbleContainer.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.remove();
+                }
+            }, 4000);
+        }
+
+        function createBubbleBurst(bubble) {
+            const bubbleContainer = document.getElementById('bubbleContainer');
+            const rect = bubble.getBoundingClientRect();
+            
+            // Create multiple small bubbles for burst effect
+            for (let i = 0; i < 8; i++) {
+                const miniBubble = document.createElement('div');
+                miniBubble.className = 'bubble small';
+                miniBubble.style.position = 'absolute';
+                miniBubble.style.left = rect.left + 'px';
+                miniBubble.style.top = rect.top + 'px';
+                miniBubble.style.width = '10px';
+                miniBubble.style.height = '10px';
+                miniBubble.style.animation = 'none';
+                miniBubble.style.transition = 'all 0.5s ease-out';
+                miniBubble.style.opacity = '0.8';
+                
+                bubbleContainer.appendChild(miniBubble);
+                
+                // Animate burst
+                setTimeout(() => {
+                    const angle = (i / 8) * Math.PI * 2;
+                    const distance = 100;
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    
+                    miniBubble.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                    miniBubble.style.opacity = '0';
+                }, 10);
+                
+                // Remove mini bubble
+                setTimeout(() => {
+                    if (miniBubble.parentNode) {
+                        miniBubble.remove();
+                    }
+                }, 600);
+            }
+        }
+
+        function startBubbleAnimation() {
+            // Check if device is mobile for performance optimization
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // Reduced frequency for mobile devices
+                setInterval(createBubble, 12000); // Every 12 seconds on mobile
+                setInterval(createSparkle, 10000); // Every 10 seconds on mobile
+                
+                // Create only 1 initial bubble on mobile
+                setTimeout(createBubble, 3000);
+            } else {
+                // Normal frequency for desktop
+                setInterval(createBubble, 8000); // Every 8 seconds
+                setInterval(createSparkle, 6000); // Every 6 seconds
+                
+                // Create 2 initial bubbles on desktop
+                setTimeout(createBubble, 2000);
+                setTimeout(createBubble, 5000);
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize typewriter effect but don't start it yet
+            const startTypewriter = initTypewriter();
+            
+            // Start bubble animation
+            startBubbleAnimation();
+            
+            // Store the startTypewriter function globally so it can be called from audio system
+            window.startTypewriter = startTypewriter;
+        });
+
+        // Force auto-play audio - Ultimate solution
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('audioPlayer');
+            const musicStatus = document.getElementById('musicStatus');
+            
+            // Set audio properties
+            audio.volume = 0.6;
+            audio.preload = 'auto';
+            audio.muted = false;
+            
+            // Multiple auto-play attempts with different strategies
+            const forcePlay = () => {
+                // Strategy 1: Direct play
+                audio.play().then(() => {
+                    console.log('Audio playing successfully');
+                    musicStatus.innerHTML = 'Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu"';
+                    musicStatus.className = 'text-green-400 text-lg font-medium mb-2';
+                    // Start typewriter effect when audio plays successfully
+                    if (window.startTypewriter) {
+                        window.startTypewriter();
+                    }
+                }).catch(e => {
+                    console.log('Direct play failed, trying muted play:', e);
+                    
+                    // Strategy 2: Muted play then unmute
+                    audio.muted = true;
+                    audio.play().then(() => {
+                        setTimeout(() => {
+                            audio.muted = false;
+                            console.log('Audio playing with muted strategy');
+                            musicStatus.innerHTML = 'Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu"';
+                            musicStatus.className = 'text-green-400 text-lg font-medium mb-2';
+                            // Start typewriter effect when audio plays successfully
+                            if (window.startTypewriter) {
+                                window.startTypewriter();
+                            }
+                        }, 100);
+                    }).catch(e2 => {
+                        console.log('Muted play failed, trying user interaction:', e2);
+                        
+                        // Strategy 3: Wait for any user interaction
+                        const playOnInteraction = () => {
+                            audio.muted = false;
+                            audio.play().then(() => {
+                                console.log('Audio playing after user interaction');
+                                musicStatus.innerHTML = 'Yeh malah di klik. "Kalo mau tahu, dari dulu sampe kapanpun juga, perasaan suka ke kamu gak akan pernah berubah 🙈. aww jadi malu"';
+                                musicStatus.className = 'text-green-400 text-lg font-medium mb-2';
+                                // Start typewriter effect when audio plays successfully
+                                if (window.startTypewriter) {
+                                    window.startTypewriter();
+                                }
+                            }).catch(e3 => {
+                                console.log('All strategies failed:', e3);
+                                musicStatus.innerHTML = '❌ Gagal memutar musik';
+                                musicStatus.className = 'text-red-400 text-lg font-medium mb-2';
+                            });
+                        };
+                        
+                        // Show hint for user interaction
+                        musicStatus.innerHTML = '💡 Klik Aku disini Dong Kak 🤭';
+                        musicStatus.className = 'text-blue-400 text-lg font-medium mb-2 animate-pulse';
+                        
+                        // Listen for any interaction
+                        const startEverything = () => {
+                            playOnInteraction();
+                            // Start typewriter effect when user interacts
+                            if (window.startTypewriter) {
+                                window.startTypewriter();
+                            }
+                        };
+                        
+                        document.addEventListener('click', startEverything, { once: true });
+                        document.addEventListener('keydown', startEverything, { once: true });
+                        document.addEventListener('touchstart', startEverything, { once: true });
+                    });
+                });
+            };
+            
+            // Try multiple times with different delays
+            forcePlay();
+            setTimeout(forcePlay, 100);
+            setTimeout(forcePlay, 500);
+            setTimeout(forcePlay, 1000);
+            setTimeout(forcePlay, 2000);
+            
+            // Also try when page is fully loaded
+            window.addEventListener('load', forcePlay);
+            
+            // Try when page becomes visible
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    forcePlay();
+                }
+            });
+            
+            // Try when window gets focus
+            window.addEventListener('focus', forcePlay);
+        });
+    </script>
+</body>
+</html>
