@@ -399,9 +399,8 @@
                 element.style.borderRight = '2px solid white';
                 
                 let i = 0;
-                // Adjust typing speed based on device
-                const isMobile = window.innerWidth <= 768;
-                const typeSpeed = isMobile ? 100 : 150; // Faster on mobile for better UX
+                // Consistent typing speed across all devices
+                const typeSpeed = 150; // Same speed for all devices
                 
                 function typeChar() {
                     if (i < originalText.length) {
